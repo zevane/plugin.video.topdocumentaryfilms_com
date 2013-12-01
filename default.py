@@ -65,6 +65,8 @@ def playVideo(url):
           match6=re.compile('src="http://www.dailymotion.com/embed/video/(.+?)"', re.DOTALL).findall(content)
           match7=re.compile('src="http://www.dailymotion.com/widget/jukebox\\?list\\[\\]=%2Fplaylist%2F(.+?)%2F', re.DOTALL).findall(content)
           match8=re.compile('src="//www.youtube.com/embed/(.+?)\\?', re.DOTALL).findall(content)
+	  match9=re.compile('src="http://www.youtube.com/v/(.+?)\\?', re.DOTALL).findall(content)
+	  print 'match9 = ', match9[0]
 	  url=""
           if len(match0)>0:
             pl=match0[0]
@@ -79,7 +81,9 @@ def playVideo(url):
           elif len(match2)>0:
             playYoutubePlaylist(match2[0])
             url="pl"
-          elif len(match3)>0:
+	  elif len(match9)>0:
+            url = getYoutubeUrl(match9[0])
+	  elif len(match3)>0:
             url = getVimeoUrl(match3[0])
           elif len(match4)>0:
             url = getBlipUrl(match4[0])
