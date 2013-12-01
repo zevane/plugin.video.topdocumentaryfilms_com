@@ -64,7 +64,8 @@ def playVideo(url):
           match5=re.compile('src="http://channel.nationalgeographic.com/(.+?)/videos/(.+?)/embed/', re.DOTALL).findall(content)
           match6=re.compile('src="http://www.dailymotion.com/embed/video/(.+?)"', re.DOTALL).findall(content)
           match7=re.compile('src="http://www.dailymotion.com/widget/jukebox\\?list\\[\\]=%2Fplaylist%2F(.+?)%2F', re.DOTALL).findall(content)
-          url=""
+          match8=re.compile('src="//www.youtube.com/embed/(.+?)\\?', re.DOTALL).findall(content)
+	  url=""
           if len(match0)>0:
             pl=match0[0]
             if '"' in pl:
@@ -73,6 +74,8 @@ def playVideo(url):
             url="pl"
           elif len(match1)>0:
             url = getYoutubeUrl(match1[0])
+	  elif len(match8)>0:
+            url = getYoutubeUrl(match8[0])
           elif len(match2)>0:
             playYoutubePlaylist(match2[0])
             url="pl"
