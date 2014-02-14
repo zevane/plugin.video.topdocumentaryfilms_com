@@ -56,41 +56,29 @@ def listVideos(url):
 
 def playVideo(url):
           content = getUrl(url)
-          match0=re.compile('src="http://www.youtube.com/embed/videoseries\\?list=(.+?)&', re.DOTALL).findall(content)
-          match1=re.compile('src="http://www.youtube.com/embed/(.+?)\\?', re.DOTALL).findall(content)
-          match2=re.compile('src="http://www.youtube.com/p/(.+?)\\?', re.DOTALL).findall(content)
+          
+          match0=re.compile('src="(?:http:)?//www.youtube.com/embed/videoseries\\?list=(.+?)&', re.DOTALL).findall(content)
+          match1=re.compile('src="(?:http:)?//www.youtube.com/embed/(.+?)\\?', re.DOTALL).findall(content)
+          match2=re.compile('src="(?:http:)?//www.youtube.com/p/(.+?)\\?', re.DOTALL).findall(content)
+
           match3=re.compile('src="http://player.vimeo.com/video/(.+?)\\?', re.DOTALL).findall(content)
           match4=re.compile('src="http://blip.tv/play/(.+?).html', re.DOTALL).findall(content)
           match5=re.compile('src="http://channel.nationalgeographic.com/(.+?)/videos/(.+?)/embed/', re.DOTALL).findall(content)
           match6=re.compile('src="http://www.dailymotion.com/embed/video/(.+?)"', re.DOTALL).findall(content)
           match7=re.compile('src="http://www.dailymotion.com/widget/jukebox\\?list\\[\\]=%2Fplaylist%2F(.+?)%2F', re.DOTALL).findall(content)
-          match8=re.compile('src="//www.youtube.com/embed/(.+?)\\?', re.DOTALL).findall(content)
-	  match9=re.compile('src="http://www.youtube.com/v/(.+?)\\?', re.DOTALL).findall(content)
-	  match10=re.compile('src="//www.youtube.com/embed/videoseries\\?list=(.+?)&', re.DOTALL).findall(content)
-	  print 'match10 = ', match10[0]
-	  url=""
+          
+          url=""
           if len(match0)>0:
             pl=match0[0]
             if '"' in pl:
               pl=pl[:pl.find('"')]
             playYoutubePlaylist(pl)
             url="pl"
-	  elif len(match10)>0:
-	    pl=match10[0]
-            print 'pl = ', pl
-            if '"' in pl:
-              pl=pl[:pl.find('"')]
-            playYoutubePlaylist(pl)
-            url="pl"
 	  elif len(match1)>0:
             url = getYoutubeUrl(match1[0])
-	  elif len(match8)>0:
-            url = getYoutubeUrl(match8[0])
-          elif len(match2)>0:
+	  elif len(match2)>0:
             playYoutubePlaylist(match2[0])
             url="pl"
-	  elif len(match9)>0:
-            url = getYoutubeUrl(match9[0])
 	  elif len(match3)>0:
             url = getVimeoUrl(match3[0])
           elif len(match4)>0:
